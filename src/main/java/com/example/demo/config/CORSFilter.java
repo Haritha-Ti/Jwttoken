@@ -22,6 +22,7 @@ public class CORSFilter implements Filter {
 
 		chain.doFilter(req, res);
 	}
+	
 
 	public void init(FilterConfig filterConfig) {}
 
