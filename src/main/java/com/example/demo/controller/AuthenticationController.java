@@ -34,23 +34,26 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+    //noobs will always make mistakes, soon they will realize how things work
     @RequestMapping(value = "/generate-token", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody LoginUser loginUser) throws AuthenticationException {
-
-    	System.out.println("username "+loginUser.getUsername()+" "+loginUser.getPassword());
-        final Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginUser.getUsername(),
-                        loginUser.getPassword()
-                )
-        );
+    	Authentication auth = SecurityContextHolder.getContext()
+                .getAuthentication();
+		/*
+		 * System.out.println("username "+loginUser.getUsername()+" "+loginUser.
+		 * getPassword()); final Authentication authentication =
+		 * authenticationManager.authenticate( new UsernamePasswordAuthenticationToken(
+		 * loginUser.getUsername(), loginUser.getPassword() ) );
+		 */
         
-        System.out.println("auth  : "+authentication);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        final UserDto user = userService.findOne(loginUser.getUsername());
-        System.out.println(user.getUsername()+user.getPassword());
+        //System.out.println("auth  : "+authentication);
+        //SecurityContextHolder.getContext().setAuthentication(authentication);
+        //final UserDto user = userService.findOne(loginUser.getUsername());
+       // System.out.println(user.getUsername()+user.getPassword());
+    	UserDto user = new UserDto();
+    	user.setUsername(auth.getName());
         final String token = jwtTokenUtil.generateToken(user);
-        System.out.println("token "+token);
+        //System.out.println("token "+token);
         return ResponseEntity.ok(new AuthToken(token));
     }
 
