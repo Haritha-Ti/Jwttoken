@@ -16,5 +16,7 @@ public interface UserService {
 	User save(UserDto user);
 
 	UserDto findOne(String username);
+
+	User login_authentication(String username, String password);
 	
 }

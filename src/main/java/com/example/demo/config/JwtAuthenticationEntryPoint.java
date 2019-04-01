@@ -20,6 +20,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint, Se
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException authException) throws IOException, ServletException {
+		System.out.println("JwtAuthEntrypoint 7:"+request);
 		String message = "Sorry, You're not authorized to access this resource.";
 		ObjectMapper mapper = new ObjectMapper();
 
